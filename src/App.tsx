@@ -1,20 +1,29 @@
 import * as React from 'react';
-import './App.css';
+import { Col, Grid, Row } from 'react-bootstrap';
+import { loadData } from "./actions/dataActions";
+import RankTable  from './components/RankTable';
+import ResultsList from './components/ResultsList';
+import RoundDropdown from './components/RoundDropdown';
 
-import logo from './logo.svg';
+import configureStore from "./store/configureStore";
+
+const store = configureStore();
+
+
+store.dispatch(loadData());
 
 class App extends React.Component {
   public render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
+      <Grid>
+        <Row className="show-grid">
+          <Col xs={12} md={12}>
+            <RoundDropdown/>
+            <ResultsList/>
+            <RankTable/>
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }
