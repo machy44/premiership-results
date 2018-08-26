@@ -27,7 +27,7 @@ export const loadData = () => {
     })
 }
 
-const URL = "https://s3.eu-central-1.amazonaws.com/js-assignment/data.json";
+const URL = "http://localhost:3000/results";
 
 const fetchData = () => {
   return fetch(URL, { method: 'GET'})

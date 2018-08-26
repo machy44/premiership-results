@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Row, Table } from 'react-bootstrap';
 
-const headValues = ['Position', 'Club Name', 'Played', 'W', 'D', 'L', 'GF', 'GA', 'GD', 'POINTS'];
+const headValues = ['Position', 'Club Name', 'Played', 'W', 'D', 'L', 'GF', 'GA', 'GD', 'Points'];
 
 interface ITableHeader {
   headValues: string[];
@@ -11,7 +11,7 @@ const TableHeader: React.SFC<ITableHeader> = (props) => {
   return (
     <thead>
       <tr>
-        {props.headValues.map((element, index) =>  <th key={index}>{element}</th>)}      
+        {props.headValues.map((element, index) => <th key={index}>{element}</th>)}      
       </tr>
     </thead>
   )
@@ -46,6 +46,5 @@ const RankTable: React.SFC<{}> = () => {
     </Row>
   )
 }
-
 
 export default RankTable;

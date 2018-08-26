@@ -12,8 +12,8 @@ const RoundDropdown: React.SFC<{}> = () => {
           key={'round'}
           id={`dropdown-basic`}>
         <MenuItem eventKey="1">Action</MenuItem>
-        <MenuItem eventKey="2">Another action</MenuItem>
-        <MenuItem eventKey="3">Active Item</MenuItem>
+        {/* <MenuItem eventKey="2">Another action</MenuItem> */}
+        {/* <MenuItem eventKey="3">Active Item</MenuItem> */}
       </DropdownButton>
     </ButtonGroup>
   </Row>
