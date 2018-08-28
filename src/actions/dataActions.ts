@@ -5,7 +5,7 @@ interface IMatch {
   match: object,
 }
 
-interface IDataType {
+export interface IDataType {
   round: number,
   matches: IMatch[]
 }
@@ -22,7 +22,7 @@ export const loadData = () => {
     .then(res => res.json())
     .then(data => {
       // tslint:disable-next-line:no-console
-      console.log('data', data)
+      console.log('loadData data', data)
       dispatch(loadDataSuccess(data))
     })
 }

@@ -1,14 +1,13 @@
-import { AnyAction, applyMiddleware, createStore,  } from "redux";
+import { applyMiddleware, createStore,  } from "redux";
 import logger from 'redux-logger';
-import thunk, { ThunkDispatch } from "redux-thunk";
+import thunk from "redux-thunk";
 import rootReducer from "../reducers";
 // tslint:disable-next-line:ordered-imports
-import { loadData } from "../actions/dataActions";
+// import { loadData } from "../actions/dataActions";
 
 export default function configureStore() {
-  const store = createStore(
+  return createStore(
     rootReducer,
     applyMiddleware(thunk, logger)
   );
-  (store.dispatch as ThunkDispatch<any, void, AnyAction>)( loadData() );
 }

@@ -1,6 +1,14 @@
 import * as types from "../actions/actionTypes";
+import { IDataType } from '../actions/dataActions';
+import initialState from './initialState';
 
-export default function dataReducer(state = [], action: any) {
+
+interface IDataAction {
+  type: string,
+  payload: IDataType[],
+}
+
+export default function dataReducer(state = initialState.data, action: IDataAction) {
   switch(action.type) {
     case types.LOAD_DATA_SUCCESS:
       return action.payload;

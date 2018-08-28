@@ -1,27 +1,66 @@
 import * as React from 'react';
 import { Col, Grid, Row } from 'react-bootstrap';
-import { Provider } from "react-redux";
-import RankTable  from './components/RankTable';
+// import { connect } from 'react-redux';
+import RankTable from './components/RankTable';
 import ResultsList from './components/ResultsList';
 import RoundDropdown from './components/RoundDropdown';
-import configureStore from "./store/configureStore";
 
-const store: any = configureStore();
 
-class App extends React.Component {
+
+
+// export interface IDropdownProps {
+//   rounds: string[]
+// }
+
+// export interface IRounds {
+//   value: string,
+//   lable: string,
+//   id: number
+// }
+
+class App extends React.Component<any, any> {
+  // constructor(props: any) {
+  //   super(props);
+  //   // this.state = {
+  //   //   lastRound: false,
+  //   //   selectedRound: '',
+  //   // };
+  // }
+
+  // componentDidMount () {
+  //   this.handleChange(selectedRound);
+  // }
+  // tslint:disable-next-line:member-ordering
+  // public static getDerivedStateFromProps(nextProps: any, prevState: any) {
+  //   if(!prevState.lastRound) { 
+  //     return { selectedRound: nextProps.rounds[nextProps.rounds.length - 1], lastRound: true } 
+  //   }
+  //   return null;
+  // }
+
+ 
+
   public render() {
+    // const { selectedRound } = this.state;
+    // const { rounds, selectedRound } = this.props;
     return (
-      <Provider store={store}>
       <Grid>
         <Row className="show-grid">
           <Col xs={12} md={12}>
-            <RoundDropdown/>
-            <ResultsList/>
-            <RankTable/>
+            <RoundDropdown
+              // handleChange = {this.handleChange}
+              // selectedRound = {selectedRound}
+              // rounds = {rounds}
+            />
+            <ResultsList 
+              // selectedRound = {selectedRound}
+            />
+            <RankTable 
+              // selectedRound = {selectedRound}
+            />
           </Col>
         </Row>
       </Grid>
-      </Provider>
     );
   }
 }
