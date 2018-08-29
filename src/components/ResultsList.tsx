@@ -11,11 +11,20 @@ const resultDisplay = (result: any) => {
     if (result.hasOwnProperty(key)) {
       // tslint:disable-next-line:no-console
       if (count === 1) {
-        prettyDisplay.push(<React.Fragment><span>{key}</span><span style={{paddingLeft: 10}}>{result[key]}</span>-</React.Fragment>);
+        prettyDisplay.push(
+          <span key={key}>
+            <span>{key}</span>
+            <span style={{ paddingLeft: 10 }}>{result[key]}</span>
+            &#45;
+          </span>);
         count += 1;
       }
       else {
-        prettyDisplay.push(<React.Fragment><span>{result[key]}</span><span style={{paddingLeft: 10}}>{key}</span></React.Fragment>);
+        prettyDisplay.push(
+          <span key={key}>
+            <span>{result[key]}</span>
+            <span style={{ paddingLeft: 10 }}>{key}</span>
+          </span>);
       }
     }
   }
@@ -24,35 +33,36 @@ const resultDisplay = (result: any) => {
 
 const ResultsList: React.SFC<any> = ({ roundResults }) => {
   // tslint:disable-next-line:no-console
-  console.log('roundResults', roundResults);
+  // console.log('roundResults', roundResults);
   return (
     <Row >
-      <ListGroup className="list-group-wrapper" style={{ textAlign: 'center'}}>
-      { roundResults
-        ? roundResults.matches.map((element: any, index: any) => {
-          // tslint:disable-next-line:no-console
-          console.log('ListGroupItem element', element);
+      <h3>Round results</h3>
+      <ListGroup className="list-group-wrapper" style={{ textAlign: 'center' }}>
+        {roundResults
+          ? roundResults.matches.map((element: any, index: any) => {
+            // tslint:disable-next-line:no-console
+            // console.log('ListGroupItem element', element);
             return <ListGroupItem key={index}>{resultDisplay(element)}</ListGroupItem>
           })
-        : null
-      }
+          : null
+        }
       </ListGroup>
     </Row>
   )
 };
 
 const defineResultsList = (data: any, selected: any) => {
-  const roundResults =  data.filter((rounds: any) => {
+  const roundResults = data.filter((rounds: any) => {
     return rounds.round === selected.id;
   })
 
   return roundResults[0];
 }
 
-const mapStateToProps =(state: any) => {
+const mapStateToProps = (state: any) => {
   const { data, selected } = state;
   const roundResults: any = defineResultsList(data, selected);
-  return { 
+  return {
     roundResults
   }
 }
