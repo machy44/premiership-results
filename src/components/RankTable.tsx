@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Row, Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import './RankTable.css'
 
 const statAttributes = {
   'position': 0,
@@ -46,17 +47,17 @@ const TableBody: React.SFC<any> = ({ tableData }) => {
   )
 }
 
-const RankTable: React.SFC<any> = ({clubs}) => {
+const RankTable: React.SFC<any> = ({clubs, children}) => {
   return (
     <Row className="table-wrapper">
-      <Table responsive={true}>
+    <h4 className="table-title">{children}</h4>
+      <Table responsive={true} hover={true}>
         <TableHeader 
           tableHeaders={statAttributes}
         />
         { clubs && clubs.length
           ? <TableBody
-              tableData = {clubs}
-            /> 
+              tableData = {clubs}/>
           : <TableBody
               tableData = {[]}
             /> 
@@ -122,6 +123,7 @@ const mapStateToProps =(state: any) => {
   const { data } = state;
   if (!data.length){ return {} };
   const clubs: any = defineClubsAndAttrs(data);
+  // computing data
   // const clubsWithStatProps: any = defineClubStatProps(clubs);
   // tslint:disable-next-line:no-console
   console.log('clubs', clubs);

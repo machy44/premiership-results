@@ -1,3 +1,9 @@
-.table-wrapper {
-  margin: 25px 0;
+.table-title {
+  margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 992px) {
+  .table-title {
+    text-align: center;
+  }
 }

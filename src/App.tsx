@@ -19,17 +19,18 @@ import RoundDropdown from './components/RoundDropdown';
 // }
 
 class App extends React.Component<any, any> {
-  // constructor(props: any) {
-  //   super(props);
-  //   // this.state = {
-  //   //   lastRound: false,
-  //   //   selectedRound: '',
-  //   // };
-  // }
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      lastRound: false,
+    };
+  }
 
-  // componentDidMount () {
-  //   this.handleChange(selectedRound);
-  // }
+  public componentDidMount () {
+    this.setState({
+      lastRound: true,
+    })
+  }
   // tslint:disable-next-line:member-ordering
   // public static getDerivedStateFromProps(nextProps: any, prevState: any) {
   //   if(!prevState.lastRound) { 
@@ -51,13 +52,14 @@ class App extends React.Component<any, any> {
               // handleChange = {this.handleChange}
               // selectedRound = {selectedRound}
               // rounds = {rounds}
+              // lastRound
             />
-            <ResultsList 
-              // selectedRound = {selectedRound}
-            />
-            <RankTable 
-              // selectedRound = {selectedRound}
-            />
+            <ResultsList>
+              Round results
+            </ResultsList>
+            <RankTable>
+              Premier League Table
+            </RankTable>
           </Col>
         </Row>
       </Grid>

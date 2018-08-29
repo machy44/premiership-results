@@ -31,12 +31,12 @@ const resultDisplay = (result: any) => {
   return prettyDisplay;
 }
 
-const ResultsList: React.SFC<any> = ({ roundResults }) => {
+const ResultsList: React.SFC<any> = ({ roundResults, children }) => {
   // tslint:disable-next-line:no-console
   // console.log('roundResults', roundResults);
   return (
     <Row >
-      <h3>Round results</h3>
+      <h4 className="result-list-title">{children}</h4>
       <ListGroup className="list-group-wrapper" style={{ textAlign: 'center' }}>
         {roundResults
           ? roundResults.matches.map((element: any, index: any) => {
