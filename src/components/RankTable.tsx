@@ -2,7 +2,9 @@ import * as React from 'react';
 import { Row, Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import './RankTable.css'
-
+// tslint:disable:no-console
+// tslint:disable:no-debugger
+/* tslint:disable:no-string-literal */
 const statAttributes = {
   'position': 0,
   // tslint:disable-next-line:object-literal-sort-keys
@@ -37,6 +39,9 @@ const TableBody: React.SFC<any> = ({ tableData }) => {
       {
         tableData.map((element: any, index: any) => {
           const dataRow: any = Object.keys(element).map((key) => {
+            if(key === 'position') {
+              return <td key={key}>{index + 1}</td>
+            }
             return <td key={key}>{element[key]}</td>;
           })
           return <tr key={index}>{dataRow}</tr>
@@ -80,56 +85,115 @@ const defineClubsAndAttrs = (data: any) => {
   return clubs;
 }
 
-// const defineClubStatProps = (clubs: any) => {
-//   return clubs.map(element => {
-//     return element { 'jure': 'boban'}
-//   })
-// }
+const definePosition = (clubs: any) => {
+  return clubs.sort((a: any, b: any) => {
+    if (a['points'] > b['points']) {
+      return -1;
+    }
+    else if (b['points'] > a['points']) {
+      return 1;
+    } else { // same points
+      if (a['gd'] > b['gd']) {
+        return - 1
+      } else if (b['gd'] > a['gd']) {
+        return 1;
+      } else {
+        if (a['gf'] > b['gf']) {
+          return - 1
+        } if (b['gf'] > a['gf']) {
+          return 1
+        } else {
+          return 0;
+        }
+      }
+    }
+  })
+}
 
-// export default RankTable;
-// selected selected = {value: "Round 6", label: "Round 6", id: 6}
-// const defineClubsStats = (data: any, selected: any) => {
-//   // tslint:disable-next-line:no-console
-//   // tslint:disable-next-line:prefer-const
-//   // let clubsStats: any=[];
-//   for(let i=0; i < selected.id; i++) {
-//     // tslint:disable-next-line:no-console
-//     console.log('matches', data[i].matches.forEach((element: any) => {
-//       // tslint:disable-next-line:no-console
-//       console.log('element in forEach', element);
-//       for (const key in element) {
-//         if (element.hasOwnProperty(key)) {
-//             // do stuff
-//           // tslint:disable-next-line:no-console
-//           console.log('element', element);
-//           // tslint:disable-next-line:no-console
-//           console.log('key', key);
-//           // tslint:disable-next-line:no-console
-//           console.log('element[key]', element[key]);
-//         }
-//     }
-     
-//     }));
-//     // tslint:disable-next-line:no-console
-//     // console.log('matches Object keys', Object.keys(data[i].matches));
-//   }
-//   // tslint:disable-next-line:no-console
-//   console.log('selected defineClubsStats', selected);
-//   return data;
-// }
+const defineStat = (firstTeam: any, secondTeam: any, clubs: any) => {
+  // console.log('firstTeam', firstTeam);
+  // console.log('secondTeam', secondTeam);
+  // const [ firstTeamAttr, secondTeamAttr ] = clubs.filter((object: any) => { // ovo bi mogo u zasebnu funkciju
+  //   return Object.keys(object).map(key => {
+  //     return object[key] === firstTeam[0] || object[key] === secondTeam[0]
+  //   })
+  // });
+   const firstTeamAttr = clubs.filter((object: any) => { // ovo bi mogo u zasebnu funkciju
+    return object['club name'] === firstTeam[0];
+  })
 
-const mapStateToProps =(state: any) => {
-  // const { data, selected } = state;
-  const { data } = state;
+  const secondTeamAttr = clubs.filter((object: any) => { // ovo bi mogo u zasebnu funkciju
+    return object['club name'] === secondTeam[0];
+  })
+
+  // give me points
+  firstTeamAttr[0]['played'] += 1;
+  firstTeamAttr[0]['gf'] += firstTeam[1];
+  firstTeamAttr[0]['ga'] += secondTeam[1];
+  firstTeamAttr[0]['gd'] = firstTeamAttr[0]['gf'] - firstTeamAttr[0]['ga'];
+
+  secondTeamAttr[0]['played'] += 1;
+  secondTeamAttr[0]['gf'] += secondTeam[1];
+  secondTeamAttr[0]['ga'] += firstTeam[1];
+  secondTeamAttr[0]['gd'] = secondTeamAttr[0]['gf'] - secondTeamAttr[0]['ga'];
+
+  if(firstTeam[1] > secondTeam[1]) {
+    firstTeamAttr[0]['w'] += 1;
+    secondTeamAttr[0]['l'] += 1;
+    // points
+    firstTeamAttr[0]['points'] += 3;
+  } else if (secondTeam[1] > firstTeam[1]) {
+    secondTeamAttr[0]['w'] += 1;
+    firstTeamAttr[0]['l'] += 1;
+    // points
+    secondTeamAttr[0]['points'] += 3;
+  } else {
+    secondTeamAttr[0]['d'] += 1;
+    firstTeamAttr[0]['d'] += 1;
+
+    firstTeamAttr[0]['points'] += 1;
+    secondTeamAttr[0]['points'] += 1;
+  }
+  // console.log('firstTeamAttr', firstTeamAttr);
+  // console.log('secondTeamAttr', secondTeamAttr);
+}
+ // compare two arrays and give them values which u want
+
+const defineClubStatProps = (data: any, clubs: any) => {
+  debugger;
+  data.map((roundObject: any) => {
+    roundObject.matches.map((element: any) => {
+      console.log('element', element)
+      // from object give me all data needed
+      const firstTeam: any = []; // ovo je array di cu imat ime tima i broj golova
+      const secondTeam: any = []
+      let count = 0;
+      Object.keys(element).map(key => {
+        if(count === 0) {
+          firstTeam.push(key, element[key]);
+          count += 1;
+        } else {
+          secondTeam.push(key, element[key]);
+        }
+      })
+      defineStat(firstTeam, secondTeam, clubs)
+    }
+    )
+  })
+}
+
+const arrangeDataToSelectedRound = (data: any, id: any) => {
+  return data.filter((element: any) => element.round <= id);
+}
+
+const mapStateToProps = (state: any) => {
+  const { data, selected } = state;
   if (!data.length){ return {} };
   const clubs: any = defineClubsAndAttrs(data);
-  // computing data
-  // const clubsWithStatProps: any = defineClubStatProps(clubs);
-  // tslint:disable-next-line:no-console
-  console.log('clubs', clubs);
-  // const clubsStats: any = defineClubsStats(data, selected);
+  const dataToSelectedRound = arrangeDataToSelectedRound(data, selected.id)
+  defineClubStatProps(dataToSelectedRound, clubs);
+  definePosition(clubs);
   return { 
-    // clubsStats
     clubs
   }
 }
