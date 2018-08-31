@@ -5,6 +5,7 @@ import Select from 'react-select';
 import './RoundDropdown.css';
 // tslint:disable-next-line:ordered-imports
 import { selectRound } from "../actions/roundActions";
+// tslint:disable:no-console
 
 export interface IRounds {
   value: string,
@@ -13,19 +14,44 @@ export interface IRounds {
 }
 
 class RoundDropdown extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+    this.state={
+      defaultValue: true,// only for setup default value of Select component 
+      selectedState: '', // need for rerender Select component cause I had a problem with updating select input
+    }
+    // tslint:disable-next-line:no-unused-expression
+  }
+
+  public componentDidUpdate() {
+    const { rounds } = this.props;
+    const { defaultValue } = this.state; 
+    // i needed this part of code cause Select Component didnt't set defaultValue if selected is not in the RoundDropdown component state
+    // cause of some reason Select component didn't rerender if selected Value is only put in redux store. I don't know why
+    if (rounds && defaultValue) {
+      this.handleChange(rounds[rounds.length -1])
+      this.setState({
+        defaultValue: false,
+        selectedState: rounds[rounds.length -1] ,
+      })
+    }
+  }
 
   public handleChange = (selectedRound: any) => {
-    // this.setState({ selectedRound });
+    // i needed this part of code cause Select Component didnt't set defaultValue if selected is not in the RoundDropdown component state
+    // cause of some reason Select component didn't rerender if selected Value is only put in redux store. I don't know why
+    this.setState({ selectedState: selectedRound });
     this.props.selectRound(selectedRound);
   }
   public render() {
-    const { rounds, selectedRound } = this.props;
+    const { rounds } = this.props;
+    const {selectedState} = this.state
     return (
       <Row className="button-group-wrapper">
         <Select
           className="select-round-field"
           isSearchable={true}
-          value={selectedRound}
+          value={selectedState}
           onChange={this.handleChange}
           options={rounds}
         />

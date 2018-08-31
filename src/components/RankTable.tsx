@@ -17,6 +17,7 @@ const statAttributes = {
   'ga': 0,
   'gd': 0,
   'points': 0,
+  // 'form'
 };
 
 // interface ITableHeader {
@@ -40,7 +41,7 @@ const TableBody: React.SFC<any> = ({ tableData }) => {
         tableData.map((element: any, index: any) => {
           const dataRow: any = Object.keys(element).map((key) => {
             if(key === 'position') {
-              return <td key={key}>{index + 1}</td>
+              return <td key={key}><span>{index + 1}&#183;</span></td>
             }
             return <td key={key}>{element[key]}</td>;
           })
@@ -160,7 +161,6 @@ const defineStat = (firstTeam: any, secondTeam: any, clubs: any) => {
  // compare two arrays and give them values which u want
 
 const defineClubStatProps = (data: any, clubs: any) => {
-  debugger;
   data.map((roundObject: any) => {
     roundObject.matches.map((element: any) => {
       console.log('element', element)

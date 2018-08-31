@@ -22,15 +22,15 @@ class App extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      lastRound: false,
+      defaultRound: false,
     };
   }
 
-  public componentDidMount () {
-    this.setState({
-      lastRound: true,
-    })
-  }
+  // public componentDidMount () {
+  //   this.setState({
+  //     defaultRound: true,
+  //   })
+  // }
   // tslint:disable-next-line:member-ordering
   // public static getDerivedStateFromProps(nextProps: any, prevState: any) {
   //   if(!prevState.lastRound) { 
@@ -42,7 +42,7 @@ class App extends React.Component<any, any> {
  
 
   public render() {
-    // const { selectedRound } = this.state;
+    const { defaultRound } = this.state;
     // const { rounds, selectedRound } = this.props;
     return (
       <Grid>
@@ -52,7 +52,7 @@ class App extends React.Component<any, any> {
               // handleChange = {this.handleChange}
               // selectedRound = {selectedRound}
               // rounds = {rounds}
-              // lastRound
+              defaultRound = {defaultRound}
             />
             <ResultsList>
               Round results
