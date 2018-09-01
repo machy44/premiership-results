@@ -26,20 +26,28 @@ class RoundDropdown extends React.Component<any, any> {
   public componentDidUpdate() {
     const { rounds } = this.props;
     const { defaultValue } = this.state; 
-    // i needed this part of code cause Select Component didnt't set defaultValue if selected is not in the RoundDropdown component state
-    // cause of some reason Select component didn't rerender if selected Value is only put in redux store. I don't know why
+    // I needed this part of code cause Select Component didnt't set defaultValue if selected is not part of RoundDropdown component state.
+    // For some reason Select component didn't rerender if selected Value is only put in redux store. I don't know why.
     if (rounds && defaultValue) {
-      this.handleChange(rounds[rounds.length -1])
+      // this.handleChange(rounds[rounds.length -1])
+      this.handleChange(rounds[0])
       this.setState({
         defaultValue: false,
-        selectedState: rounds[rounds.length -1] ,
+        selectedState: rounds[0] ,
       })
     }
   }
 
+  // public shouldComponentUpdate(nextProps: any) { 
+  //   if(nextProps.selectedRound === this.props.selectedRound) { // if same round is selected don't rerender
+  //     return false;
+  //   }
+  //   return true;
+  // }
+
   public handleChange = (selectedRound: any) => {
-    // i needed this part of code cause Select Component didnt't set defaultValue if selected is not in the RoundDropdown component state
-    // cause of some reason Select component didn't rerender if selected Value is only put in redux store. I don't know why
+    // I needed this part of code cause Select Component didnt't set defaultValue if selected is not part of RoundDropdown component state.
+    // For some reason Select component didn't rerender if selected Value is only put in redux store. I don't know why.
     this.setState({ selectedState: selectedRound });
     this.props.selectRound(selectedRound);
   }
