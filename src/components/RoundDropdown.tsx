@@ -40,7 +40,6 @@ class RoundDropdown extends React.Component<any, any> {
 
   public shouldComponentUpdate(nextProps: any, nextState: any) { 
     // tslint:disable-next-line:no-debugger
-    debugger;
     // if same round is selected don't rerender
     if(this.state.selectedState && nextState.selectedState.id === this.state.selectedState.id) {
       return false;
