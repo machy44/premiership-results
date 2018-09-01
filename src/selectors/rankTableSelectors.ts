@@ -40,7 +40,7 @@ export const defineClubsPosition = (clubs: any) => {
 const defineStats = (firstTeam: any, secondTeam: any, clubs: any) => {
 
   const extractClubs: any = (team: any) => {
-    return clubs.filter((object: any) => { // ovo bi mogo u zasebnu funkciju
+    return clubs.filter((object: any) => {
       return object['club name'] === team;
     })[0]; // filter will return array although there is only one elemenet and I dont want an array
   }
