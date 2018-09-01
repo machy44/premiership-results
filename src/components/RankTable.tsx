@@ -55,7 +55,7 @@ const TableBody: React.SFC<any> = ({ tableData }) => {
 
 const RankTable: React.SFC<any> = ({clubs, children}) => {
   return (
-    <Row className="table-wrapper">
+    <Row>
     <h4 className="table-title">{children}</h4>
       <Table responsive={true} hover={true}>
         <TableHeader 
@@ -83,7 +83,6 @@ const defineClubsAndAttrs = (data: any) => {
       }
     }
   });
-  debugger;
   return clubs;
 }
 
@@ -138,10 +137,10 @@ const defineStat = (firstTeam: any, secondTeam: any, clubs: any) => {
   }
 
   if(firstTeamAttr[0]['form'].length === 5) {
-    firstTeamAttr[0]['form'] = removefirstCharacter(firstTeamAttr[0]['form'])
+    firstTeamAttr[0]['form'] = removefirstCharacter(firstTeamAttr[0]['form']);
   }
   if(secondTeamAttr[0]['form'].length === 5) {
-    secondTeamAttr[0]['form'] = removefirstCharacter(secondTeamAttr[0]['form'])
+    secondTeamAttr[0]['form'] = removefirstCharacter(secondTeamAttr[0]['form']);
   }
 
   if(firstTeam[1] > secondTeam[1]) {
@@ -202,7 +201,7 @@ const mapStateToProps = (state: any) => {
   const { data, selected } = state;
   if (!data.length){ return {} };
   const clubs: any = defineClubsAndAttrs(data);
-  const dataToSelectedRound = arrangeDataToSelectedRound(data, selected.id)
+  const dataToSelectedRound = arrangeDataToSelectedRound(data, selected.id);
   defineClubStatProps(dataToSelectedRound, clubs);
   definePosition(clubs);
   return { 

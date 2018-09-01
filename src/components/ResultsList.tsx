@@ -1,34 +1,25 @@
 import * as React from 'react';
 import { ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { defineResultsList} from '../selectors/resultsListSelector';
 import './ResultsList.css'
 
-const resultDisplay = (result: any) => {
+const resultDisplay = (match: any) => {
   // return Object.keys(result);
-  const prettyDisplay: any = [];
-  let count: any = 1;
-  for (const key in result) {
-    if (result.hasOwnProperty(key)) {
+  const teams: any = [];
+  const result: any = [];
+  for (const key in match) {
+    if (match.hasOwnProperty(key)) {
       // tslint:disable-next-line:no-console
-      if (count === 1) {
-        prettyDisplay.push(
-          <span key={key}>
-            <span>{key}</span>
-            <span style={{ paddingLeft: 10 }}>{result[key]}</span>
-            &#45;
-          </span>);
-        count += 1;
-      }
-      else {
-        prettyDisplay.push(
-          <span key={key}>
-            <span>{result[key]}</span>
-            <span style={{ paddingLeft: 10 }}>{key}</span>
-          </span>);
-      }
+        teams.push(<span>{key}</span>);
+        result.push(<span>{match[key]}</span>);
     }
   }
-  return prettyDisplay;
+  return (<div>
+            <span style={{ display: "inline-block", width: '40%', textAlign: "right", marginLeft: 10 }}>{teams[0]}</span>
+              <span style={{ display: "inline-block", width: '10%' }}>{result[0]}<span style={{padding: '0 10%'}}>&#45;</span>{result[1]}</span>
+              <span style={{ display: "inline-block", width: '40%', textAlign: "left", marginRight: 10 }}>{teams[1]}</span>
+          </div>)
 }
 
 const ResultsList: React.SFC<any> = ({ roundResults, children }) => {
@@ -50,14 +41,6 @@ const ResultsList: React.SFC<any> = ({ roundResults, children }) => {
     </Row>
   )
 };
-
-const defineResultsList = (data: any, selected: any) => {
-  const roundResults = data.filter((rounds: any) => {
-    return rounds.round === selected.id;
-  })
-
-  return roundResults[0];
-}
 
 const mapStateToProps = (state: any) => {
   const { data, selected } = state;

@@ -19,12 +19,12 @@ import RoundDropdown from './components/RoundDropdown';
 // }
 
 class App extends React.Component<any, any> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      defaultRound: false,
-    };
-  }
+  // constructor(props: any) {
+  //   super(props);
+  //   this.state = {
+  //     defaultRound: false,
+  //   };
+  // }
 
   // public componentDidMount () {
   //   this.setState({
@@ -42,20 +42,17 @@ class App extends React.Component<any, any> {
  
 
   public render() {
-    const { defaultRound } = this.state;
+    // const { defaultRound } = this.state;
     // const { rounds, selectedRound } = this.props;
     return (
       <Grid>
         <Row className="show-grid">
           <Col xs={12} md={12}>
-            <RoundDropdown
-              // handleChange = {this.handleChange}
-              // selectedRound = {selectedRound}
-              // rounds = {rounds}
-              defaultRound = {defaultRound}
-            />
+            <RoundDropdown>
+              Filter By Round
+            </RoundDropdown>
             <ResultsList>
-              Round results
+              Round Results
             </ResultsList>
             <RankTable>
               Premier League Table

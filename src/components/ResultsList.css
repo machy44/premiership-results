@@ -1,5 +1,10 @@
 .list-group-wrapper {
-  margin: 25px 0;
+  margin: 20px 0;
+}
+
+.list-group-wrapper > li {
+  border-left: none;
+  border-right: none;
 }
 .result-list-title {
   letter-spacing: 2px;

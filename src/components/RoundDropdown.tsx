@@ -29,11 +29,10 @@ class RoundDropdown extends React.Component<any, any> {
     // I needed this part of code cause Select Component didnt't set defaultValue if selected is not part of RoundDropdown component state.
     // For some reason Select component didn't rerender if selected Value is only put in redux store. I don't know why.
     if (rounds && defaultValue) {
-      // this.handleChange(rounds[rounds.length -1])
-      this.handleChange(rounds[0])
+      this.handleChange(rounds[rounds.length -1])
       this.setState({
         defaultValue: false,
-        selectedState: rounds[0] ,
+        selectedState: rounds[rounds.length -1],
       })
     }
   }
@@ -52,10 +51,11 @@ class RoundDropdown extends React.Component<any, any> {
     this.props.selectRound(selectedRound);
   }
   public render() {
-    const { rounds } = this.props;
+    const { rounds, children } = this.props;
     const {selectedState} = this.state
     return (
       <Row className="button-group-wrapper">
+      <h4 className="select-round-title">{children}</h4>
         <Select
           className="select-round-field"
           isSearchable={true}

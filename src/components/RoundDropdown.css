@@ -3,6 +3,11 @@
   margin-bottom: 25px;
 }
 
+.select-round-title {
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
 .select-round-field {
   width: 25%
 }
@@ -12,5 +17,8 @@
     width: 50%;
     margin-left: auto;
     margin-right: auto;
+  }
+  .select-round-title {
+    text-align: center;
   }
 }
