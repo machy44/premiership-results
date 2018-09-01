@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import Select from 'react-select';
 import './RoundDropdown.css';
 // tslint:disable-next-line:ordered-imports
-import { selectRound } from "../actions/roundActions";
+import { selectRound } from '../actions/roundActions';
+import { defineRounds } from '../selectors/roundDropdownSelectors';
 // tslint:disable:no-console
 
 export interface IRounds {
@@ -17,32 +18,35 @@ class RoundDropdown extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state={
-      defaultValue: true,// only for setup default value of Select component 
+      isDefaultValue: true,// only for setup default value of Select component 
       selectedState: '', // need for rerender Select component cause I had a problem with updating select input
     }
-    // tslint:disable-next-line:no-unused-expression
   }
 
   public componentDidUpdate() {
     const { rounds } = this.props;
-    const { defaultValue } = this.state; 
+    const { isDefaultValue } = this.state; 
     // I needed this part of code cause Select Component didnt't set defaultValue if selected is not part of RoundDropdown component state.
     // For some reason Select component didn't rerender if selected Value is only put in redux store. I don't know why.
-    if (rounds && defaultValue) {
+    if (rounds && isDefaultValue) {
+      // set default value last round only after first render
       this.handleChange(rounds[rounds.length -1])
       this.setState({
-        defaultValue: false,
+        isDefaultValue: false,
         selectedState: rounds[rounds.length -1],
       })
     }
   }
 
-  // public shouldComponentUpdate(nextProps: any) { 
-  //   if(nextProps.selectedRound === this.props.selectedRound) { // if same round is selected don't rerender
-  //     return false;
-  //   }
-  //   return true;
-  // }
+  public shouldComponentUpdate(nextProps: any, nextState: any) { 
+    // tslint:disable-next-line:no-debugger
+    debugger;
+    // if same round is selected don't rerender
+    if(this.state.selectedState && nextState.selectedState.id === this.state.selectedState.id) {
+      return false;
+    }
+    return true;
+  }
 
   public handleChange = (selectedRound: any) => {
     // I needed this part of code cause Select Component didnt't set defaultValue if selected is not part of RoundDropdown component state.
@@ -65,15 +69,6 @@ class RoundDropdown extends React.Component<any, any> {
         />
       </Row>
     )
-  }
-}
-
-const defineRounds = (data: any) => {
-  if (data.length) {
-    return data.map((element: any, index: any) => {
-      const round = `Round ${element.round}`;
-      return { value: round, label: round, id: index + 1 }
-    });
   }
 }
 

@@ -1,6 +1,13 @@
+
 .table-title {
   margin-bottom: 20px;
+  margin-top: 20px;
   letter-spacing: 2px;
+}
+
+.table {
+  margin-top: 20px;
+  margin-bottom: 50px;
 }
 
 th:first-child, td:first-child {

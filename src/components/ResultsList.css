@@ -1,13 +1,12 @@
-.list-group-wrapper {
-  margin: 20px 0;
+.result-list-title {
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+  margin-top: 20px;
 }
 
 .list-group-wrapper > li {
   border-left: none;
   border-right: none;
-}
-.result-list-title {
-  letter-spacing: 2px;
 }
 
 @media only screen and (max-width: 992px) {

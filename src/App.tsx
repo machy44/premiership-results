@@ -5,63 +5,22 @@ import RankTable from './components/RankTable';
 import ResultsList from './components/ResultsList';
 import RoundDropdown from './components/RoundDropdown';
 
-
-
-
-// export interface IDropdownProps {
-//   rounds: string[]
-// }
-
-// export interface IRounds {
-//   value: string,
-//   lable: string,
-//   id: number
-// }
-
-class App extends React.Component<any, any> {
-  // constructor(props: any) {
-  //   super(props);
-  //   this.state = {
-  //     defaultRound: false,
-  //   };
-  // }
-
-  // public componentDidMount () {
-  //   this.setState({
-  //     defaultRound: true,
-  //   })
-  // }
-  // tslint:disable-next-line:member-ordering
-  // public static getDerivedStateFromProps(nextProps: any, prevState: any) {
-  //   if(!prevState.lastRound) { 
-  //     return { selectedRound: nextProps.rounds[nextProps.rounds.length - 1], lastRound: true } 
-  //   }
-  //   return null;
-  // }
-
- 
-
-  public render() {
-    // const { defaultRound } = this.state;
-    // const { rounds, selectedRound } = this.props;
-    return (
-      <Grid>
-        <Row className="show-grid">
-          <Col xs={12} md={12}>
-            <RoundDropdown>
-              Filter By Round
-            </RoundDropdown>
-            <ResultsList>
-              Round Results
-            </ResultsList>
-            <RankTable>
-              Premier League Table
-            </RankTable>
-          </Col>
-        </Row>
-      </Grid>
-    );
-  }
-}
+const App: React.SFC<any> = () => (
+  <Grid>
+    <Row className="show-grid">
+      <Col xs={12} md={12}>
+        <RoundDropdown>
+          Filter By Round
+        </RoundDropdown>
+        <ResultsList>
+          Round Results
+        </ResultsList>
+        <RankTable>
+          Premier League Table
+        </RankTable>
+      </Col>
+    </Row>
+  </Grid>
+);
 
 export default App;

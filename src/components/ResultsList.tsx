@@ -1,16 +1,14 @@
 import * as React from 'react';
 import { ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { defineResultsList} from '../selectors/resultsListSelector';
+import { giveRoundsTillSelected } from '../selectors/resultsListSelectors';
 import './ResultsList.css'
 
 const resultDisplay = (match: any) => {
-  // return Object.keys(result);
   const teams: any = [];
   const result: any = [];
   for (const key in match) {
     if (match.hasOwnProperty(key)) {
-      // tslint:disable-next-line:no-console
         teams.push(<span>{key}</span>);
         result.push(<span>{match[key]}</span>);
     }
@@ -23,16 +21,12 @@ const resultDisplay = (match: any) => {
 }
 
 const ResultsList: React.SFC<any> = ({ roundResults, children }) => {
-  // tslint:disable-next-line:no-console
-  // console.log('roundResults', roundResults);
   return (
     <Row >
       <h4 className="result-list-title">{children}</h4>
       <ListGroup className="list-group-wrapper" style={{ textAlign: 'center' }}>
         {roundResults
           ? roundResults.matches.map((element: any, index: any) => {
-            // tslint:disable-next-line:no-console
-            // console.log('ListGroupItem element', element);
             return <ListGroupItem key={index}>{resultDisplay(element)}</ListGroupItem>
           })
           : null
@@ -44,10 +38,8 @@ const ResultsList: React.SFC<any> = ({ roundResults, children }) => {
 
 const mapStateToProps = (state: any) => {
   const { data, selected } = state;
-  const roundResults: any = defineResultsList(data, selected);
-  return {
-    roundResults
-  }
+  const roundResults: any = giveRoundsTillSelected(data, selected);
+  return { roundResults };
 }
 
 export default connect(mapStateToProps, null)(ResultsList);
