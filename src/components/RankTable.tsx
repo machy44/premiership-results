@@ -58,7 +58,7 @@ const TableBody: React.SFC<any> = ({ tableData }) => {
 
 class RankTable extends React.Component<any, any> {
 
-  // same as in the Rounddropdown component -> don-t rerender if the same round is selcted
+  // same as in the Rounddropdown component -> don-t rerender if the same round is selected
   public shouldComponentUpdate(nextProps: any) {
     if(this.props.selected && this.props.selected.id === nextProps.selected.id) {
       return false;

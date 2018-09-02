@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { giveRoundsTillSelected } from '../selectors/resultsListSelectors';
-import './ResultsList.css'
+import { giveRoundsTillSelected } from '../selectors/RoundResultsSelectors';
+import './RoundResults.css'
 
 const resultDisplay = (match: any) => {
   const teams: any = [];
@@ -20,7 +20,7 @@ const resultDisplay = (match: any) => {
           </div>)
 }
 
-const ResultsList: React.SFC<any> = ({ roundResults, children }) => {
+const RoundResults: React.SFC<any> = ({ roundResults, children }) => {
   return (
     <Row >
       <h4 className="result-list-title">{children}</h4>
@@ -42,4 +42,4 @@ const mapStateToProps = (state: any) => {
   return { roundResults };
 }
 
-export default connect(mapStateToProps, null)(ResultsList);
+export default connect(mapStateToProps, null)(RoundResults);

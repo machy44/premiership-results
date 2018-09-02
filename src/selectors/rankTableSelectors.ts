@@ -42,7 +42,7 @@ const defineStats = (firstTeam: any, secondTeam: any, clubs: any) => {
   const extractClubs: any = (team: any) => {
     return clubs.filter((object: any) => {
       return object['club name'] === team;
-    })[0]; // filter will return array although there is only one elemenet and I dont want an array
+    })[0]; // filter will return array although there is only one element and I dont want an array
   }
    const firstTeamValues = extractClubs(firstTeam[0]);
    const secondTeamValues = extractClubs(secondTeam[0]);

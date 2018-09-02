@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Col, Grid, Row } from 'react-bootstrap';
 // import { connect } from 'react-redux';
 import RankTable from './components/RankTable';
-import ResultsList from './components/ResultsList';
 import RoundDropdown from './components/RoundDropdown';
+import RoundResults from './components/RoundResults';
 
 const App: React.SFC<any> = () => (
   <Grid>
@@ -12,9 +12,9 @@ const App: React.SFC<any> = () => (
         <RoundDropdown>
           Filter By Round
         </RoundDropdown>
-        <ResultsList>
+        <RoundResults>
           Round Results
-        </ResultsList>
+        </RoundResults>
         <RankTable>
           Premier League Table
         </RankTable>
