@@ -1,6 +1,6 @@
-import { Dispatch } from "redux";
+import { Dispatch } from 'redux';
 import { IData } from '../types';
-import * as types from "./actionTypes";
+import * as types from './actionTypes';
 
 export interface ILoadDataSuccess {
   type: types.LOAD_DATA_SUCCESS;

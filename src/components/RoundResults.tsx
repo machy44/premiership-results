@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { giveRoundsTillSelected } from '../selectors/RoundResultsSelectors';
+import { giveRoundsTillSelected } from '../selectors/roundResultsSelectors';
+import { IStoreState } from '../types';
 import './RoundResults.css'
 
-const resultDisplay = (match: any) => {
+const resultDisplay = (match: object) => {
   const teams: any = [];
   const result: any = [];
   for (const key in match) {
@@ -20,13 +21,22 @@ const resultDisplay = (match: any) => {
           </div>)
 }
 
-const RoundResults: React.SFC<any> = ({ roundResults, children }) => {
+interface IMatches {
+  matches: object[],
+}
+
+interface IProps {
+  roundResults: IMatches,
+  children: string
+}
+
+const RoundResults: React.SFC<IProps> = ({ roundResults, children }) => {
   return (
     <Row >
       <h4 className="result-list-title">{children}</h4>
       <ListGroup className="list-group-wrapper" style={{ textAlign: 'center' }}>
         {roundResults
-          ? roundResults.matches.map((element: any, index: any) => {
+          ? roundResults.matches.map((element: object, index: number) => {
             return <ListGroupItem key={index}>{resultDisplay(element)}</ListGroupItem>
           })
           : null
@@ -36,7 +46,7 @@ const RoundResults: React.SFC<any> = ({ roundResults, children }) => {
   )
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: IStoreState) => {
   const { data, selected } = state;
   const roundResults: any = giveRoundsTillSelected(data, selected);
   return { roundResults };

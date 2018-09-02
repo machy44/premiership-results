@@ -1,7 +1,10 @@
+import { IStatAttributes} from '../components/RankTable';
+import { IData } from '../types';
 /* tslint:disable:no-string-literal */
-export const defineClubsWithAttrs = (data: any, statAttributes: any) => {
-  const clubs: any = []
-  data[0].matches.forEach((element: any) => {
+
+export const defineClubsWithAttrs = (data: IData[], statAttributes: IStatAttributes) => {
+  const clubs: IStatAttributes[] = []
+  data[0].matches.forEach((element: IData) => {
     for (const key in element) {
       if (element.hasOwnProperty(key)) {
         // all attributes where stats gonna be kept
@@ -12,12 +15,12 @@ export const defineClubsWithAttrs = (data: any, statAttributes: any) => {
   return clubs;
 }
 
-export const arrangeDataToSelectedRound = (data: any, id: any) => {
-  return data.filter((element: any) => element.round <= id);
+export const arrangeDataToSelectedRound = (data: IData[], id: number) => {
+  return data.filter((element: IData) => element.round <= id);
 }
 
-export const defineClubsPosition = (clubs: any) => {
-  return clubs.sort((a: any, b: any) => {
+export const defineClubsPosition = (clubs: IStatAttributes[]) => {
+  return clubs.sort((a: IStatAttributes, b: IStatAttributes) => {
     switch (true) {
       case (a['points'] > b['points']):
         return -1;
@@ -37,7 +40,7 @@ export const defineClubsPosition = (clubs: any) => {
   })
 }
 
-const defineStats = (firstTeam: any, secondTeam: any, clubs: any) => {
+const defineStats = (firstTeam: any, secondTeam: any, clubs: IStatAttributes[]) => {
 
   const extractClubs: any = (team: any) => {
     return clubs.filter((object: any) => {
@@ -96,10 +99,10 @@ const defineStats = (firstTeam: any, secondTeam: any, clubs: any) => {
   }
 }
 
-export const defineClubStatProps = (data: any, clubs: any) => {
-  data.map((roundObject: any) => {
-    roundObject.matches.map((element: any) => {
-      // this is an arrays in which will be stored name of the club and number of goals used for comparison
+export const defineClubStatProps = (data: IData[], clubs: IStatAttributes[]) => {
+  data.map((roundObject: IData) => {
+    roundObject.matches.map((element: object) => {
+      // this is an arrays in which will be stored name of the club and number of goals used for comparison in defineStats()
       const firstTeam: any = [];
       const secondTeam: any = [];
       let count = 0;

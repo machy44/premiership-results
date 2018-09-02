@@ -1,5 +1,5 @@
 import { ISelected } from '../types';
-import * as types from "./actionTypes";
+import * as types from './actionTypes';
 
 export interface ISelectedRoundSuccess {
   type: types.SELECTED_ROUND_SUCCESS;

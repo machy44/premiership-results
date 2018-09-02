@@ -2,24 +2,23 @@ import * as React from 'react';
 import { Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import Select from 'react-select';
-import './RoundDropdown.css';
-// tslint:disable-next-line:ordered-imports
 import { selectRound } from '../actions/roundActions';
 import { defineRounds } from '../selectors/roundDropdownSelectors';
-// tslint:disable:no-console
+import { ISelected, IStoreState } from '../types';
+import './RoundDropdown.css';
 
-export interface IRounds {
-  value: string,
-  lable: string,
-  id: number
+
+interface IState {
+  isDefaultValue: boolean,
+  selectedState: any, 
 }
 
-class RoundDropdown extends React.Component<any, any> {
+class RoundDropdown extends React.Component<any, IState> {
   constructor(props: any) {
     super(props);
     this.state={
       isDefaultValue: true,// only for setup default value of Select component 
-      selectedState: '', // need for rerender Select component cause I had a problem with updating select input
+      selectedState: '' // need for rerender Select component cause I had a problem with updating select input
     }
   }
 
@@ -38,8 +37,7 @@ class RoundDropdown extends React.Component<any, any> {
     }
   }
 
-  public shouldComponentUpdate(nextProps: any, nextState: any) { 
-    // tslint:disable-next-line:no-debugger
+  public shouldComponentUpdate(nextProps: any, nextState: IState) { 
     // if same round is selected don't rerender
     if(this.state.selectedState && nextState.selectedState.id === this.state.selectedState.id) {
       return false;
@@ -47,7 +45,7 @@ class RoundDropdown extends React.Component<any, any> {
     return true;
   }
 
-  public handleChange = (selectedRound: any) => {
+  public handleChange = (selectedRound: ISelected) => {
     // I needed this part of code cause Select Component didnt't set defaultValue if selected is not part of RoundDropdown component state.
     // For some reason Select component didn't rerender if selected Value is only put in redux store. I don't know why.
     this.setState({ selectedState: selectedRound });
@@ -71,15 +69,15 @@ class RoundDropdown extends React.Component<any, any> {
   }
 }
 
-const mapStateToProps = (state: any) => {
-  const { data, selectedRound } = state;
-  const rounds: any = defineRounds(data);
-  return { rounds, selectedRound };
+const mapStateToProps = (state: IStoreState) => {
+  const { data, selected } = state;
+  const rounds: ISelected[] = defineRounds(data);
+  return { rounds, selected };
 }
 
 const mapDisptachToProps = (dispatch: any) => {
   return{
-    selectRound: (selectedRound: any) => { dispatch(selectRound(selectedRound)) }
+    selectRound: (selectedRound: ISelected) => { dispatch(selectRound(selectedRound)) }
   }
 }
 

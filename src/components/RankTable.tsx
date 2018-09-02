@@ -7,9 +7,25 @@ import {
   defineClubStatProps,
   defineClubsWithAttrs,
 } from '../selectors/rankTableSelectors';
+import { ISelected, IStoreState } from '../types';
 import './RankTable.css'
 
-// blueprint of stats which will be collected for every club
+export interface IStatAttributes {
+  'position': number,
+  // tslint:disable-next-line:object-literal-sort-keys
+  'club name': string,
+  'played': number,
+  'w': number,
+  'd': number,
+  'l': number,
+  'gf': number,
+  'ga': number,
+  'gd': number,
+  'points': number,
+  'form': string,
+}
+
+// blueprint of stats which will be collected for every club for calucations
 const statAttributes = {
   'position': 0,
   // tslint:disable-next-line:object-literal-sort-keys
@@ -25,11 +41,11 @@ const statAttributes = {
   'form': '',
 };
 
-// interface ITableHeader {
-//   tableHeaders: string[];
-// }
+interface ITableHeaderProps {
+  tableHeaders: IStatAttributes;
+}
 
-const TableHeader: React.SFC<any> = ({tableHeaders}) => {
+const TableHeader: React.SFC<ITableHeaderProps> = ({tableHeaders}) => {
   return (
     <thead>
       <tr>
@@ -39,10 +55,14 @@ const TableHeader: React.SFC<any> = ({tableHeaders}) => {
   )
 }
 
-const TableBody: React.SFC<any> = ({ tableData }) => {
+interface ITableBodyProps {
+  tableData: IStatAttributes[];
+}
+
+const TableBody: React.SFC<ITableBodyProps> = ({ tableData }) => {
   return (
     <tbody>
-      { tableData.map((element: any, index: any) => {
+      { tableData.map((element: IStatAttributes, index: number) => {
           const dataRow: any = Object.keys(element).map((key) => {
             if (key === 'position') {
               return <td key={key}>{index + 1}</td>
@@ -56,10 +76,16 @@ const TableBody: React.SFC<any> = ({ tableData }) => {
   )
 }
 
-class RankTable extends React.Component<any, any> {
+interface IRankTableProps {
+  children: string,
+  clubs: IStatAttributes[],
+  selected: ISelected,
+}
 
-  // same as in the Rounddropdown component -> don-t rerender if the same round is selected
-  public shouldComponentUpdate(nextProps: any) {
+class RankTable extends React.Component<any, IRankTableProps> {
+
+  // same as in the RoundDropdown component -> don-t rerender if the same round is selected
+  public shouldComponentUpdate(nextProps: IRankTableProps) {
     if(this.props.selected && this.props.selected.id === nextProps.selected.id) {
       return false;
     }
@@ -88,12 +114,12 @@ class RankTable extends React.Component<any, any> {
   }
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: IStoreState) => {
   const { data, selected } = state;
   // on first render there is no data
   if (!data.length){ return {} };
   const dataToSelectedRound = arrangeDataToSelectedRound(data, selected.id);
-  const clubs: any = defineClubsWithAttrs(data, statAttributes);
+  const clubs: IStatAttributes[] = defineClubsWithAttrs(data, statAttributes);
   defineClubStatProps(dataToSelectedRound, clubs);
   defineClubsPosition(clubs);
   return {

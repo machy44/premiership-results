@@ -1,9 +1,8 @@
-import { applyMiddleware, createStore,  } from "redux";
+import { applyMiddleware, createStore,  } from 'redux';
 import logger from 'redux-logger';
-import thunk from "redux-thunk";
-import rootReducer from "../reducers";
-// tslint:disable-next-line:ordered-imports
-// import { loadData } from "../actions/dataActions";
+import thunk from 'redux-thunk';
+import rootReducer from '../reducers';
+
 
 export default function configureStore() {
   return createStore(
