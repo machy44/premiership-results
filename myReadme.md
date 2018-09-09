@@ -14,3 +14,5 @@ STEPS FOR START APP:
   - enpoint is set on: http://localhost:3000/results
 4. npm start
 5. app is runnning on localhost:8080 (port is set in package.json start script)
+
+you can see deployed app on https://premiership-results.herokuapp.com/
